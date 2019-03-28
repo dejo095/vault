@@ -1,0 +1,19 @@
+# VAULT
+
+* [x] create server folder
+* [x] feathers g app
+* [x] feathers g authentication
+* [x] feathers g service (boards)
+* [x] npm i crypto-js
+* [x] feathers g hook (process-boards) -- cypher
+* [x] feathers g hook (decypher-boards) -- decypher
+* [ ] ---
+* [x] vue create client
+* [x] vue add vuetify
+* [x] npm i feathers-vuex
+* [x] setup login
+* [x] setup register
+* [x] setup logout
+* [ ] setup notifications with snackbar via vuex store
+* [ ] setup get boards and populate home 
+* [ ] 
