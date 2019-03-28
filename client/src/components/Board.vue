@@ -8,12 +8,8 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-card-text>
-      <ul>
-        <li>one</li>
-        <li>one</li>
-        <li>one</li>
-        <li>one</li>
-      </ul>
+     <p>{{ board.text }}</p>
+     <small>{{ board.createdAt }}</small>
     </v-card-text>
   </v-card>
 </template>

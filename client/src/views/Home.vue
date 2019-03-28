@@ -16,9 +16,9 @@
       <v-layout>
         <h1 v-if="loadingBoards">Loading...</h1>
 
-        <!-- <v-flex md4 sm4 v-for="(board, i) in boards" :key="i">
+        <v-flex md4 sm4 v-for="(board, i) in boards" :key="i">
           <pa-singleboard :board="board">No data</pa-singleboard>
-        </v-flex> -->
+        </v-flex>
 
       </v-layout>
     </v-container>
@@ -30,6 +30,11 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 import Board from '@/components/Board';
 
 export default {
+  data() {
+    return {
+      boards: null
+    }
+  },
   components: {
     'pa-singleboard': Board,
   },
@@ -51,6 +56,9 @@ export default {
   created () {
     // Find all appointments. We'll use the getters to separate them.
     this.findBoards({ query: {} })
+      .then(response => {
+        this.boards = response.data || response;
+      })
   }
 };
 </script>
