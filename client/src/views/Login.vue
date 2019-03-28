@@ -76,10 +76,10 @@ export default {
           strategy: 'local',
           ...this.user
         }).then(() => {
-          this.$store.dispatch('notification', { type: 'success', message: 'Its success' });
           this.$router.replace({ name: 'home'});
+          this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'Your have successfully logged in!' });
         }).catch((e) => {
-          this.$store.dispatch('notification', { type: 'error', message: 'Error occured during login!' });
+          this.$store.dispatch('setNotification', { state: true, color: 'red', message: 'Your credentials seem to not work!' });
           //console.error('Auth error', e);
         });
       }

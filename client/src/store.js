@@ -18,18 +18,18 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_NOTIFICATION (state, payload) {
-      state.notification = payload
-    }
+      state.notification = payload;
+    },
   },
   actions: {
-    notification (context, payload) {
-      context.commit('SET_NOTIFICATION', payload)
-    }
+    setNotification (context, payload) {
+      context.commit('SET_NOTIFICATION', payload);
+    },
   },
   getters: {
-    getNotification: state => {
+    notifications: state => {
       return state.notification;
-    }
+    },
   },
   plugins: [
     service('users', {
@@ -38,7 +38,15 @@ export default new Vuex.Store({
         password: '',
       }
     }),
-    service('boards'),
+    service('boards', {
+      instanceDefaults: {
+        boardId: '',
+        active: '',
+        title:'',
+        text: '',
+        createdAt: '',
+      }
+    }),
     auth({ userService: 'users' }),
   ],
 });

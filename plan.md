@@ -14,6 +14,9 @@
 * [x] setup login
 * [x] setup register
 * [x] setup logout
-* [ ] setup notifications with snackbar via vuex store
-* [ ] setup get boards and populate home 
-* [ ] 
+* [x] setup notifications with snackbar via vuex store
+* [ ] setup find boards and populate home
+* [ ] limit the find() boards to owners only using hooks in backend
+
+
+https://github.com/emaesen/vue-feathers-productivity-app/blob/master/client/src/components/Todos.vue

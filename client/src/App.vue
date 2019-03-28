@@ -8,36 +8,19 @@
       </v-content>
     </v-app>
 
-    <v-snackbar v-model="notification.snackbar" :color="notification.color" :timeout="6000" :vertical="true">
-      {{ notification.message }}
-      <v-btn dark flat @click="notification.snackbar = false">&#10006;</v-btn>
+    <v-snackbar v-model="notifications.state" :color="notifications.color" :timeout="6000" :vertical="true">
+      {{ notifications.message }}
+      <v-btn dark flat @click="notifications.state = false"><span class="close">&#10006;</span></v-btn>
     </v-snackbar>
 
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-
 export default {
-  data() {
-    return {
-    
-    }
-  },
-  mounted() {
-    this.authenticate()
-      .then(() => {
-        console.log('LOGGED IN');
-        this.$router.push({ name: 'home'});        
-    });
-  },
-  methods: {
-    ...mapActions('auth', ['authenticate']),
-  },
   computed: {
-    notification() {
-      return this.$store.getters.getNotification;
+    notifications() {
+      return this.$store.getters.notifications;
     }
   }
  };
@@ -46,5 +29,9 @@ export default {
 <style lang="stylus">
   #app
     background-color: #4bcffa
+
+  .close
+    font-size: 20px
+
 </style>
 
