@@ -16,7 +16,7 @@
       <v-layout>
         <h1 v-if="loadingBoards">Loading...</h1>
 
-        <v-flex md4 sm4 v-for="(board, i) in boards" :key="i">
+        <v-flex mx-1 md4 sm4 v-for="(board, i) in boards" :key="i">
           <pa-singleboard :board="board">No data</pa-singleboard>
         </v-flex>
 
@@ -42,6 +42,9 @@ export default {
     ...mapState('auth', { user: 'payload' }),
     ...mapState('boards', { loadingBoards: 'isFindPending' }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
+    boards() {
+      return this.findBoardsInStore({ query: {} }).data;
+    },
   },
   methods: {
     ...mapActions('auth', ['logout']),
