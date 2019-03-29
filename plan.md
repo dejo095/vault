@@ -16,8 +16,9 @@
 * [x] setup logout
 * [x] setup notifications with snackbar via vuex store
 * [x] setup find boards and populate home
-* [ ] limit the find() boards to owners only using hooks in backend
-* [ ] create board form
+* [x] limit the find() boards to owners only using hooks in backend with feathers-authentication-hooks
+* [x] create board form
+* [ ] 
 
 
 https://github.com/emaesen/vue-feathers-productivity-app/blob/master/client/src/components/Todos.vue

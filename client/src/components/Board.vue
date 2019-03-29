@@ -1,5 +1,5 @@
 <template>
-  <v-card hover elevation-5 color="cyan lighten-4">
+  <v-card hover elevation-5 color="cyan lighten-4" width="300px">
     <v-toolbar dark color="primary">
       <v-toolbar-title>{{board.title}}</v-toolbar-title>
       <v-spacer></v-spacer>

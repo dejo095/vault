@@ -1,23 +1,25 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const hooks = require('feathers-authentication-hooks');
 
 const processBoards = require('../../hooks/process-boards');
+
 
 const decypherBoards = require('../../hooks/decypher-boards');
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [],
-    get: [],
-    create: [processBoards()],
-    update: [],
-    patch: [],
-    remove: []
+    find: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
+    get: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
+    create: [ processBoards() ],
+    update: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
+    patch: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
+    remove: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ]
   },
 
   after: {
     all: [],
-    find: [decypherBoards()],
+    find: [ decypherBoards() ],
     get: [],
     create: [],
     update: [],
