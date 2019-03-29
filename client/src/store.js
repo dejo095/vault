@@ -40,11 +40,8 @@ export default new Vuex.Store({
     }),
     service('boards', {
       instanceDefaults: {
-        boardId: '',
-        active: '',
         title:'',
         text: '',
-        createdAt: '',
       }
     }),
     auth({ userService: 'users' }),

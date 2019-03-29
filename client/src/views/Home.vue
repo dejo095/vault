@@ -20,6 +20,27 @@
           <pa-singleboard :board="board">No data</pa-singleboard>
         </v-flex>
 
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-on="on"
+            id="createBoard"
+            absolute
+            dark
+            fab
+            bottom
+            right
+            color="red">
+            <v-icon>add</v-icon>
+          </v-btn>
+        </template>
+        <v-toolbar>
+
+        <v-btn flat @click="dialog = false">close</v-btn>
+        </v-toolbar>
+        <pa-createboard></pa-createboard>
+      </v-dialog>
+
       </v-layout>
     </v-container>
   </v-container>
@@ -28,15 +49,18 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
 import Board from '@/components/Board';
+import CreateBoard from '@/components/CreateBoard';
 
 export default {
   data() {
     return {
-      boards: null
+      boards: null,
+      dialog: false,
     }
   },
   components: {
     'pa-singleboard': Board,
+    'pa-createboard': CreateBoard
   },
   computed: {
     ...mapState('auth', { user: 'payload' }),
@@ -62,3 +86,8 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+  #createBoard
+    bottom: 20px
+</style>
+
