@@ -13,7 +13,7 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-form v-model="valid" @submit.prevent="signIn">
+              <v-form v-model="valid" @keyup.enter="signIn">
                 <v-text-field
                   v-model="user.email"
                   :rules="emailRules"
@@ -28,19 +28,17 @@
                   label="Password"
                   type="password">
                 </v-text-field>
+                <v-layout column >
+                  <v-btn :disabled="!valid"  @click="signIn" color="primary" mr-3 mb-3>Sign In</v-btn>
+                </v-layout>
               </v-form>
             </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn :disabled="!valid" @click="signIn" color="primary" mr-3 mb-3>Sign In</v-btn>
-            </v-card-actions>
 
           </v-card>
 
         </v-flex>
 
-        <v-progress-linear v-if="isLogging" :indeterminate="true"></v-progress-linear>
+        <app-loading :isLoading="isLogging"></app-loading>
 
       </v-layout>
     </v-container>
@@ -49,8 +47,14 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import Loader from '@/components/Loader';
 
 export default {
+
+  components: {
+    'app-loading': Loader
+  },
+
   data: () => ({
     valid: false,
     user: {
@@ -65,26 +69,31 @@ export default {
       v => /.+@.+/.test(v) || 'E-mail must be valid',
     ],
   }),
+
   computed: {
+
     ...mapState('auth', { isLogging: 'isAuthenticatePending' }),
+
   },
+
   methods: {
+
     ...mapActions('auth', ['authenticate']),
+
     signIn() {
       if (this.valid) {
         this.authenticate({
           strategy: 'local',
           ...this.user
         }).then(() => {
-          this.$router.replace({ name: 'home'});
-          this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'Your have successfully logged in!' });
+          this.$router.replace({ name: 'dashboard'});
         }).catch((e) => {
           this.$store.dispatch('setNotification', { state: true, color: 'red', message: 'Your credentials seem to not work!' });
-          //console.error('Auth error', e);
         });
       }
     },
   },
+
 };
 </script>
 

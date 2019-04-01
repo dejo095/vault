@@ -19,6 +19,14 @@ module.exports = function (app) {
       type: String, 
       required: true
     },
+    imageUrl: {
+      type: String,
+      required: true
+    },
+    displayName: {
+      type: String,
+      required: true
+    },
     active: {
       type: Boolean,
       default: true

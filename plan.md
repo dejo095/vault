@@ -18,7 +18,12 @@
 * [x] setup find boards and populate home
 * [x] limit the find() boards to owners only using hooks in backend with feathers-authentication-hooks
 * [x] create board form
-* [ ] 
-
+* [ ] solve too long text in text field during save client and backend
+* [x] solve issues with pre and after hooks for crypt/decrypt
+* [x] removing boards on x click with confirmation
+* [ ] Fix creating while no auth token present
+* [ ] Fix form not reseting after create
+* [ ] keyup.enter not working in forms? v-btn maybe need to be inside form tag
+* [ ] solve auth hook to extend payload to add email so we can parse it in frontend
 
 https://github.com/emaesen/vue-feathers-productivity-app/blob/master/client/src/components/Todos.vue

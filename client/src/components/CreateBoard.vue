@@ -1,25 +1,31 @@
 <template>
-  <v-card>
-    <v-card-title><h1>Create new card</h1></v-card-title>
-    <v-form v-model="valid" @submit.prevent="sendDataForCreatingBoard">
-      <v-flex pa-3>
-        <v-text-field
-          v-model="board.title"
-          :rules="notEmpty"
-          label="Title"
-          type="text">
-        </v-text-field>
-        <v-textarea
-          label="Credentials"
-          v-model="board.text"
-          :rules="notEmpty"
-          hint="Here enter sensitive data that will be encrypted">
-        </v-textarea>
-        <v-spacer></v-spacer>
+  <v-card color="light-blue lighten-3">
+    <v-toolbar dark color="light-blue">
+      <h2>Create new card</h2>
+    </v-toolbar>
+    <v-card-text>
+      <v-form v-model="valid" @keyup.enter="sendDataForCreatingBoard" @submit.prevent="sendDataForCreatingBoard">
+        <v-flex pa-2>
+          <v-text-field
+            v-model="board.title"
+            :rules="notEmpty"
+            label="Title"
+            type="text"
+            ref="titler">
+          </v-text-field>
+          <v-textarea
+            label="Credentials"
+            v-model="board.text"
+            :rules="notEmpty"
+            hint="Enter here sensitive data that needs to be encrypted!">
+          </v-textarea>
+        </v-flex>
+        <v-layout row justify-space-between>
           <v-btn color="primary" @click="closeDialog">close</v-btn>
           <v-btn :disabled="!valid" type="submit" color="success" mr-3 mb-3>Create</v-btn>
-      </v-flex>
-    </v-form>
+        </v-layout>
+      </v-form>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -27,6 +33,7 @@
 import { mapState, mapGetters } from 'vuex';
 
 export default {
+
   data: () => ({
     valid: false,
     props: ['dialog'],
@@ -38,14 +45,26 @@ export default {
       v => !!v || 'Must not be empty',
     ],
   }),
+
+  mounted () {
+
+    this.$refs.titler.focus();
+
+  },
+
   computed: {
+
     ...mapState('users', { isCreating: 'isCreatePending' }),
+
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
+
     boards() {
       return this.findBoardsInStore({ query: {} }).data;
     },
+
   },
   methods: {
+
     sendDataForCreatingBoard () {
       if (this.valid) {
         this.$emit('dataForNewBoard', this.board);
@@ -53,11 +72,14 @@ export default {
         this.board = { title: '', text: '' };
       }
     },
+
     closeDialog () {
       this.$emit('returnedDialog', false);
       this.board = { title: '', text: '' };
-    }
+    },
+
   },
+
 };
 </script>
 
