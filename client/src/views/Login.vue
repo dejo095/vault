@@ -11,7 +11,7 @@
             </v-toolbar>
             <v-card-text>
 
-              <v-form v-model="valid" @submit.prevent="signIn">
+              <v-form ref="form" v-model="valid" @submit.prevent="signIn">
                 <v-text-field
                   v-model="user.email"
                   :rules="emailRules"
@@ -79,9 +79,9 @@ export default {
 
     ...mapActions('auth', ['authenticate']),
 
-    signIn() {
-      if (this.valid) {
-        this.authenticate({
+    async signIn() {
+      if (this.$refs.form.validate()) {
+        await this.authenticate({
           strategy: 'local',
           ...this.user
         }).then(() => {

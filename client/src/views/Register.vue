@@ -20,13 +20,6 @@
                   autofocus>
                 </v-text-field>
                 <v-text-field
-                  v-model="user.imageUrl"
-                  :rules="notEmpty"
-                  prepend-icon="image"
-                  label="Avatar url"
-                  type="text">
-                </v-text-field>
-                <v-text-field
                   v-model="user.email"
                   :rules="emailRules"
                   prepend-icon="email"
@@ -72,6 +65,7 @@ export default {
   data: (vm) => ({
     valid: false,
     user: {
+      displayName: '',
       email: '',
       password: '',
     },
@@ -99,11 +93,11 @@ export default {
 
   methods: {
 
-    signUp() {
+    async signUp() {
       if (this.$refs.form.validate()) {
         const { User } = this.$FeathersVuex;
         const user = new User(this.user);
-        user.save()
+        await user.save()
           .then((user) => {
             this.$router.push({ name: 'login'});
             this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'You are now registered!<br/>Please sign in to use the Vault!' });

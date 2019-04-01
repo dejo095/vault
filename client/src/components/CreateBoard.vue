@@ -46,11 +46,11 @@ export default {
     },
     titleRule: [
       v => !!v || 'Must not be empty',
-      v => v.length <= 20 || 'Max 20 characters',
+      v => (v && v.length <= 20) || 'Max 20 characters',
     ],
     textRule: [
       v => !!v || 'Must not be empty',
-      v => v.length < 255 || 'Max 255 characters',
+      v => (v && v.length <= 255) || 'Max 255 characters',
     ],
 
   }),

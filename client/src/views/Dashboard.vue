@@ -56,19 +56,21 @@ export default {
       const board = new Board(event);
       board.save()
         .then(() => {
-          this.$store.dispatch('setBoardsCount', this.boards.length++);
+          this.$store.commit('INCREMENT_BOARDS_COUNT');
           this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'Board created!' });
       });
     },
 
     removeBoard (boardId) {
       this.$store.dispatch('boards/remove', boardId);
-      this.$store.dispatch('setBoardsCount', this.boards.length--);
+      this.$store.commit('DECREMENT_BOARDS_COUNT');
     },
 
-    getBoardData () {
-      this.$store.dispatch('setBoardsCount', this.boards.length);
-      console.log(this.boards.length);
+    async getBoardData () {
+      console.log('prvi', this.$store.getters.boardsCount);
+      console.log('boards count', await this.boards.length);
+      
+      return this.$store.getters.boardsCount;
     },
 
   },
@@ -83,7 +85,9 @@ export default {
     },
 
     count () {
-      return this.$store.state.boardsCount;
+      console.log('drugi', this.$store.getters.boardsCount);
+      console.log('boards count 2', this.boards.length);
+      return this.$store.getters.boardsCount;
     }
 
   },

@@ -20,8 +20,7 @@ module.exports = function (app) {
       required: true
     },
     imageUrl: {
-      type: String,
-      required: true
+      type: String
     },
     displayName: {
       type: String,
