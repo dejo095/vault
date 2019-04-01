@@ -3,7 +3,7 @@
     <v-app>
       <v-content>
         <v-container fluid>
-          <app-header :user="user" :logout="logout"></app-header>
+          <app-header v-if="user" :user="user.user" :logout="logout"></app-header>
           <router-view />
         </v-container>
       </v-content>

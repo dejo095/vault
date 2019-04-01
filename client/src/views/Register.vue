@@ -1,23 +1,35 @@
 <template>
   <v-content>
     <v-container fluid fill-height>
+
       <v-layout id="signup" align-center justify-center>
-
         <v-flex xs12 sm8 md4>
-
           <v-card v-if="!isCreating" class="elevation-12">
-
             <v-toolbar dark color="primary">
               <v-toolbar-title>Need'ya to Sign Up</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
-
             <v-card-text>
-              <v-form v-model="valid" @submit.prevent="signUp">
+              <v-form ref="form" v-model="valid" @submit.prevent="signUp">
+                <v-text-field
+                  v-model="user.displayName"
+                  :rules="notEmpty"
+                  prepend-icon="person"
+                  label="Display Name"
+                  type="text"
+                  autofocus>
+                </v-text-field>
+                <v-text-field
+                  v-model="user.imageUrl"
+                  :rules="notEmpty"
+                  prepend-icon="image"
+                  label="Avatar url"
+                  type="text">
+                </v-text-field>
                 <v-text-field
                   v-model="user.email"
                   :rules="emailRules"
-                  prepend-icon="person"
+                  prepend-icon="email"
                   label="E-mail"
                   type="text">
                 </v-text-field>
@@ -35,30 +47,28 @@
                   label="Password Again"
                   type="password">
                 </v-text-field>
+                <v-layout row justify-space-between mt-3>
+                  <v-btn flat color="info">Privacy terms...</v-btn>
+                  <v-btn :disabled="!valid" type="submit" color="primary">Sign Up</v-btn>
+                </v-layout>
               </v-form>
             </v-card-text>
-
-            <v-layout column align-end>
-              <v-flex>
-                  <v-btn :disabled="!valid" @click="signUp" color="primary" pr-5 pb-5>Sign Up</v-btn>
-              </v-flex>
-            </v-layout>
-
           </v-card>
-
         </v-flex>
-
-        <v-progress-linear v-if="isCreating" :indeterminate="true"></v-progress-linear>
-
+        <!-- component -->
+        <app-loading :isLoading="isCreating"></app-loading>
       </v-layout>
+
     </v-container>
   </v-content>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Loader from '@/components/Loader';
 
 export default {
+
   data: (vm) => ({
     valid: false,
     user: {
@@ -78,21 +88,30 @@ export default {
       v => v === vm.user.password || 'Passwords must match',
     ],
   }),
+
+  components: {
+    'app-loading': Loader
+  },
+
   computed: {
     ...mapState('users', { isCreating: 'isCreatePending' }),
   },
+
   methods: {
+
     signUp() {
-      if (this.valid) {
+      if (this.$refs.form.validate()) {
         const { User } = this.$FeathersVuex;
         const user = new User(this.user);
         user.save()
           .then((user) => {
-            this.$router.push({ name: 'home'});
+            this.$router.push({ name: 'login'});
+            this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'You are now registered!<br/>Please sign in to use the Vault!' });
         });
 
       }
     },
+
   },
 };
 </script>

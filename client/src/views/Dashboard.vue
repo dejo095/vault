@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-
+    boards count: {{ count }}
     <h1 v-if="loadingBoards">Loading...</h1>
     <v-layout id="boardsPanel">
         <pa-singleboard 
@@ -43,13 +43,12 @@ export default {
   },
 
   created () {
-
     this.findBoards({ query: {} });
-    
+    this.getBoardData();
   },
- 
+
   methods: {
-    
+
     ...mapActions('boards', { findBoards: 'find' }),
 
     createNewBoard (event) {
@@ -57,24 +56,35 @@ export default {
       const board = new Board(event);
       board.save()
         .then(() => {
+          this.$store.dispatch('setBoardsCount', this.boards.length++);
           this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'Board created!' });
       });
     },
 
     removeBoard (boardId) {
       this.$store.dispatch('boards/remove', boardId);
-    }
+      this.$store.dispatch('setBoardsCount', this.boards.length--);
+    },
+
+    getBoardData () {
+      this.$store.dispatch('setBoardsCount', this.boards.length);
+      console.log(this.boards.length);
+    },
 
   },
 
   computed: {
 
-    ...mapState('boards', { loadingBoards: 'isFindPending' }),    
+    ...mapState('boards', { loadingBoards: 'isFindPending' }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
 
     boards () {
       return this.findBoardsInStore({ query: {} }).data;
     },
+
+    count () {
+      return this.$store.state.boardsCount;
+    }
 
   },
   

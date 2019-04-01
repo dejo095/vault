@@ -10,6 +10,7 @@ Vue.use(FeathersVuex);
 
 export default new Vuex.Store({
   state: {
+    boardsCount: 0,
     notification: {
       state: false,
       color: '',
@@ -20,11 +21,17 @@ export default new Vuex.Store({
     SET_NOTIFICATION (state, payload) {
       state.notification = payload;
     },
+    SET_BOARDS_COUNT (state, payload) {
+      state.boardsCount = payload;
+    },
   },
   actions: {
     setNotification (context, payload) {
       context.commit('SET_NOTIFICATION', payload);
     },
+    setBoardsCount (context, payload) {
+      context.commit('SET_BOARDS_COUNT', payload);
+    }
   },
   getters: {
     notifications: state => {

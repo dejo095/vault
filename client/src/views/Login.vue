@@ -1,25 +1,24 @@
 <template>
   <v-content>
     <v-container fluid fill-height>
+
       <v-layout id="login" align-center justify-center>
-
         <v-flex xs12 sm8 md4>
-
           <v-card v-if="!isLogging" class="elevation-12">
-
             <v-toolbar dark color="primary">
               <v-toolbar-title>Need'ya to Sign in</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
-
             <v-card-text>
-              <v-form v-model="valid" @keyup.enter="signIn">
+
+              <v-form v-model="valid" @submit.prevent="signIn">
                 <v-text-field
                   v-model="user.email"
                   :rules="emailRules"
                   prepend-icon="person"
                   label="E-mail"
-                  type="text">
+                  type="text"
+                  autofocus>
                 </v-text-field>
                 <v-text-field
                   v-model="user.password"
@@ -28,19 +27,19 @@
                   label="Password"
                   type="password">
                 </v-text-field>
-                <v-layout column >
-                  <v-btn :disabled="!valid"  @click="signIn" color="primary" mr-3 mb-3>Sign In</v-btn>
+                <v-layout row justify-space-between mt-3>
+                  <v-btn to="/register" flat color="primary">Not registered yet?</v-btn>
+                  <v-btn :disabled="!valid" type="submit" color="primary">Sign In</v-btn>
                 </v-layout>
               </v-form>
+
             </v-card-text>
-
           </v-card>
-
         </v-flex>
-
+        <!-- component -->
         <app-loading :isLoading="isLogging"></app-loading>
-
       </v-layout>
+
     </v-container>
   </v-content>
 </template>

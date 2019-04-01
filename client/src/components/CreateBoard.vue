@@ -1,28 +1,31 @@
 <template>
-  <v-card color="light-blue lighten-3">
-    <v-toolbar dark color="light-blue">
+  <v-card>
+    <v-toolbar dark color="blue">
       <h2>Create new card</h2>
     </v-toolbar>
     <v-card-text>
-      <v-form v-model="valid" @keyup.enter="sendDataForCreatingBoard" @submit.prevent="sendDataForCreatingBoard">
+      <v-form ref="form" v-model="valid" @keyup.enter="sendDataForCreatingBoard" @submit.prevent="sendDataForCreatingBoard">
         <v-flex pa-2>
           <v-text-field
             v-model="board.title"
-            :rules="notEmpty"
+            counter="20"
+            :rules="titleRule"
             label="Title"
             type="text"
-            ref="titler">
+            ref="titler"
+            autofocus>
           </v-text-field>
           <v-textarea
+            counter="255"
             label="Credentials"
             v-model="board.text"
-            :rules="notEmpty"
+            :rules="textRule"
             hint="Enter here sensitive data that needs to be encrypted!">
           </v-textarea>
         </v-flex>
         <v-layout row justify-space-between>
           <v-btn color="primary" @click="closeDialog">close</v-btn>
-          <v-btn :disabled="!valid" type="submit" color="success" mr-3 mb-3>Create</v-btn>
+          <v-btn :disabled="!valid" type="submit" color="success">Create</v-btn>
         </v-layout>
       </v-form>
     </v-card-text>
@@ -41,16 +44,16 @@ export default {
       title: '',
       text: '',
     },
-    notEmpty: [
+    titleRule: [
       v => !!v || 'Must not be empty',
+      v => v.length <= 20 || 'Max 20 characters',
     ],
+    textRule: [
+      v => !!v || 'Must not be empty',
+      v => v.length < 255 || 'Max 255 characters',
+    ],
+
   }),
-
-  mounted () {
-
-    this.$refs.titler.focus();
-
-  },
 
   computed: {
 
@@ -66,16 +69,16 @@ export default {
   methods: {
 
     sendDataForCreatingBoard () {
-      if (this.valid) {
+      if (this.$refs.form.validate()) {
         this.$emit('dataForNewBoard', this.board);
         this.$emit('returnedDialog', false);
-        this.board = { title: '', text: '' };
+        this.$refs.form.reset();
       }
     },
 
     closeDialog () {
       this.$emit('returnedDialog', false);
-      this.board = { title: '', text: '' };
+      this.$refs.form.reset();
     },
 
   },
