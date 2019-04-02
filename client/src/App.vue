@@ -9,7 +9,7 @@
       </v-content>
     </v-app>
 
-    <v-snackbar v-model="notifications.state" :color="notifications.color" :timeout="3000" :vertical="true">
+    <v-snackbar v-model="notifications.state" color="notifications.color" timeout="3000" vertical="true">
       {{ notifications.message }}
       <v-btn dark flat @click="notifications.state = false"><span class="close">&#10006;</span></v-btn>
     </v-snackbar>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import Header from '@/components/Header';
 
 export default {
@@ -30,10 +30,11 @@ export default {
   computed: {
 
     ...mapState('auth', { user: 'payload' }),
+    ...mapGetters(['notifications']),
 
-    notifications() {
-      return this.$store.getters.notifications;
-    },
+    // notifications() {
+    //   return this.$store.getters.notifications;
+    // },
 
   },
   methods: {
