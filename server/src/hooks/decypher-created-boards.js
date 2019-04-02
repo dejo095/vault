@@ -7,13 +7,11 @@ module.exports = function (options = {}) {
   
   return async context => {
 
-      
       let bytesTitle  = CryptoJS.AES.decrypt(context.result.title, process.env.CRYPTO_SECRET);
       context.result.title = bytesTitle.toString(CryptoJS.enc.Utf8);
       
       let bytesText  = CryptoJS.AES.decrypt(context.result.text, process.env.CRYPTO_SECRET);
       context.result.text = bytesText.toString(CryptoJS.enc.Utf8);     
-      
     
   };
 

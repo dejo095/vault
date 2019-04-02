@@ -27,15 +27,21 @@ export default new Vuex.Store({
     DECREMENT_BOARDS_COUNT (state, payload) {
       state.boardsCount--;
     },
+    SET_BOARDS_COUNT (state, payload) {
+      state.boardsCount = payload;
+    }
   },
   actions: {
     setNotification (context, payload) {
       context.commit('SET_NOTIFICATION', payload);
     },
+    setInitialCount (context, payload) {
+      context.commit('SET_BOARDS_COUNT', payload);
+    }
   },
   getters: {
     notifications: state => state.notification,
-    boardsCount: state => state.boardsCount,
+    boardsCounter: state => state.boardsCount,
   },
   plugins: [
     service('users', {

@@ -15,11 +15,6 @@ module.exports = function (options = {}) {
     title = CryptoJS.AES.encrypt(title, process.env.CRYPTO_SECRET);
     text = CryptoJS.AES.encrypt(text, process.env.CRYPTO_SECRET);
 
-    // context.data = {
-    //   title,
-    //   text,
-    //   ownerId: user._id,
-    // };
     context.data.title = title;
     context.data.text = text;
     

@@ -42,11 +42,13 @@ export default {
     }
   },
 
-  created () {
-    this.findBoards({ query: {} });
+  async created () {
+    await this.findBoards();
+    // sets the initial count of existing boards into store
+    await this.$store.dispatch('setInitialCount', this.boards.length);
   },
 
-  methods: {
+methods: {
 
     ...mapActions('boards', { findBoards: 'find' }),
 
@@ -77,7 +79,7 @@ export default {
     },
 
   },
-  
+
 };
 </script>
 <style lang="stylus" scoped>

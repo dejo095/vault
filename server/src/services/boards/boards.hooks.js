@@ -9,7 +9,6 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
     get: [ hooks.restrictToOwner({ ownerField: 'ownerId' }) ],
-    // create: [ processBoards() ],
     create: [ 
       hooks.associateCurrentUser({ as: 'ownerId' }),
       processBoards()

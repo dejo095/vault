@@ -2,11 +2,11 @@
   <v-toolbar>
     <v-toolbar-side-icon v-if="user"></v-toolbar-side-icon>
     <v-toolbar-title>
-      <h1>Vlt76</h1>
+      <h1>Vault-76</h1>
     </v-toolbar-title>
     <v-toolbar-items>
       <v-layout ml-5 column justify-center>
-        boards: {{ counter }}
+        <h1><v-icon>note</v-icon> {{ boardsCounter }}</h1>
       </v-layout>
     </v-toolbar-items>
     <v-spacer></v-spacer>
@@ -29,34 +29,21 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
 
   props: ['user', 'logout'],
 
-  created() {
-    this.getBoardData;
-  },
-
   computed: {
+
+    ...mapGetters(['boardsCounter']),
 
     firstLetterOfUsername () {
       return this.user.displayName.substring(0,1);
     },
 
-    counter () {
-      return this.$store.getters.boardsCount;
-    }
-
   },
-
-  methods: {
-
-    getBoardData () {
-      this.findBoardsInStore({ query: {} }).data.length;
-    },
-
-  }
 
 }
 </script>
