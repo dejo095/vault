@@ -6,7 +6,7 @@
     </v-toolbar-title>
     <v-toolbar-items>
       <v-layout ml-5 column justify-center>
-        boards: 
+        boards: {{ counter }}
       </v-layout>
     </v-toolbar-items>
     <v-spacer></v-spacer>
@@ -34,13 +34,29 @@ export default {
 
   props: ['user', 'logout'],
 
+  created() {
+    this.getBoardData;
+  },
+
   computed: {
 
     firstLetterOfUsername () {
       return this.user.displayName.substring(0,1);
     },
 
+    counter () {
+      return this.$store.getters.boardsCount;
+    }
+
   },
+
+  methods: {
+
+    getBoardData () {
+      this.findBoardsInStore({ query: {} }).data.length;
+    },
+
+  }
 
 }
 </script>

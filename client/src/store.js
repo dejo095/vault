@@ -10,7 +10,7 @@ Vue.use(FeathersVuex);
 
 export default new Vuex.Store({
   state: {
-    boardsCount: 6,
+    boardsCount: 0,
     notification: {
       state: false,
       color: '',

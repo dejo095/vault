@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    boards count: {{ count }}
+    
     <h1 v-if="loadingBoards">Loading...</h1>
     <v-layout id="boardsPanel">
         <pa-singleboard 
@@ -44,7 +44,6 @@ export default {
 
   created () {
     this.findBoards({ query: {} });
-    this.getBoardData();
   },
 
   methods: {
@@ -66,13 +65,6 @@ export default {
       this.$store.commit('DECREMENT_BOARDS_COUNT');
     },
 
-    async getBoardData () {
-      console.log('prvi', this.$store.getters.boardsCount);
-      console.log('boards count', await this.boards.length);
-      
-      return this.$store.getters.boardsCount;
-    },
-
   },
 
   computed: {
@@ -83,12 +75,6 @@ export default {
     boards () {
       return this.findBoardsInStore({ query: {} }).data;
     },
-
-    count () {
-      console.log('drugi', this.$store.getters.boardsCount);
-      console.log('boards count 2', this.boards.length);
-      return this.$store.getters.boardsCount;
-    }
 
   },
   
