@@ -6,21 +6,21 @@ const state = {
 
 const getters = {
 
-  boardsCounter: state => state.boardsCount,
+  boardsCounter: (state) => state.boardsCount,
 
 };
 
 const mutations = {
 
-  INCREMENT_BOARDS_COUNT (state, payload) {
+  INCREMENT_BOARDS_COUNT: (state, payload) => {
     state.boardsCount++;
   },
 
-  DECREMENT_BOARDS_COUNT (state, payload) {
+  DECREMENT_BOARDS_COUNT: (state, payload) => {
     state.boardsCount--;
   },
 
-  SET_BOARDS_COUNT (state, payload) {
+  SET_BOARDS_COUNT: (state, payload) => {
     state.boardsCount = payload;
   }
 
@@ -28,7 +28,7 @@ const mutations = {
 
 const actions = {
 
-  setInitialCount ({commit}, payload) {
+  setInitialCount: ({commit}, payload) => {
     commit('SET_BOARDS_COUNT', payload);
   }
 

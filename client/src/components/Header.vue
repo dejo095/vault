@@ -6,12 +6,22 @@
     </v-toolbar-title>
     <v-toolbar-items>
       <v-layout ml-5 column justify-center>
-        <h1><v-icon>note</v-icon> {{ boardsCounter }}</h1>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <h1 v-on="on"><v-icon>note</v-icon> {{ counter }}</h1>
+            </template>
+            <span>Number of existing boards</span>
+          </v-tooltip>
       </v-layout>
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="user" >
-      <v-icon class="logoutBtn" @click="logout">logout</v-icon>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-icon v-on="on" class="logoutBtn" @click="logout">logout</v-icon>
+        </template>
+        <span>Logout</span>
+      </v-tooltip>    
     </v-toolbar-items>
     <v-toolbar-items>
       <v-layout row align-center>
@@ -37,7 +47,7 @@ export default {
 
   computed: {
 
-    ...mapGetters(['boardsCounter']),
+    ...mapGetters('boards_external', { counter: 'boardsCounter' }),
 
     firstLetterOfUsername () {
       return this.user.displayName.substring(0,1);

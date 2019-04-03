@@ -45,26 +45,33 @@ export default {
   async created () {
     await this.findBoards();
     // sets the initial count of existing boards into store
-    await this.$store.dispatch('setInitialCount', this.boards.length);
+    // await this.$store.dispatch('setInitialCount', this.boards.length);
+    this.setInitialBoardsCount(this.boards.length);
   },
 
 methods: {
 
     ...mapActions('boards', { findBoards: 'find' }),
+    ...mapActions('boards_external', { setBoardCount: 'setInitialCount'}),
 
     createNewBoard (event) {
       const { Board } = this.$FeathersVuex;
       const board = new Board(event);
       board.save()
         .then(() => {
-          this.$store.commit('INCREMENT_BOARDS_COUNT');
-          this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'Board created!' });
+          this.$store.commit('boards_external/INCREMENT_BOARDS_COUNT');
+          this.$store.dispatch('loading/setNotification', { state: true, color: 'green', message: 'Board created!' });
       });
     },
 
+    // executes actions which updates counter state in store
+    setInitialBoardsCount (data) {
+      this.setBoardCount(data);
+    },
+
     removeBoard (boardId) {
-      this.$store.dispatch('boards/remove', boardId);
-      this.$store.commit('DECREMENT_BOARDS_COUNT');
+      this.$store.dispatch('boards/remove', boardId); // better this
+      this.$store.commit('boards_external/DECREMENT_BOARDS_COUNT');
     },
 
   },

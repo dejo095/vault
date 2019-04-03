@@ -1,7 +1,7 @@
 const state = {
 
   notification: {
-    state: false,
+    status: false,
     color: '',
     message: '',
   }
@@ -10,13 +10,13 @@ const state = {
 
 const getters = {
 
-  notifications: state => state.notification
+  notifications: (state) => state.notification
 
 };
 
 const mutations = {
 
-  SET_NOTIFICATION (state, payload) {
+  SET_NOTIFICATION: (state, payload) => {
     state.notification = payload;
   }
 
@@ -24,7 +24,7 @@ const mutations = {
 
 const actions = {
 
-  setNotification ({commit}, payload) {
+  setNotification: ({commit}, payload) => {
     commit('SET_NOTIFICATION', payload);
   }
 

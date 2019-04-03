@@ -3,7 +3,7 @@
     <v-container fluid fill-height>
 
       <v-layout id="login" align-center justify-center>
-        <v-flex xs12 sm8 md4>
+        <v-flex xs12 sm8 md6 lg4>
           <v-card v-if="!isLogging" class="elevation-12">
             <v-toolbar dark color="primary">
               <v-toolbar-title>Need'ya to Sign in</v-toolbar-title>

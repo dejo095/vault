@@ -4,7 +4,7 @@ import feathersVuex from 'feathers-vuex';
 import feathersClient from '../feathers-client';
 
 import loading from './modules/loading';
-import boards from './modules/boards';
+import boards_external from './modules/boards_external';
 
 const { service, auth, FeathersVuex } = feathersVuex(feathersClient, { idField: '_id' });
 
@@ -31,15 +31,11 @@ let plugins = [
 
 ]
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
 
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
   modules: {
     loading,
-    boards,
+    boards_external,
   },
   plugins: [...plugins]
 

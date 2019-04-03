@@ -9,9 +9,9 @@
       </v-content>
     </v-app>
 
-    <v-snackbar v-model="notifications.state" color="notifications.color" timeout="3000" vertical="true">
-      {{ notifications.message }}
-      <v-btn dark flat @click="notifications.state = false"><span class="close">&#10006;</span></v-btn>
+    <v-snackbar v-model="snackbar.status" :color="snackbar.color" :timeout="3000" :vertical="true">
+      {{ snackbar.message }}
+      <v-btn dark flat @click="snackbar.status = false"><span class="close">&#10006;</span></v-btn>
     </v-snackbar>
 
   </div>
@@ -30,13 +30,10 @@ export default {
   computed: {
 
     ...mapState('auth', { user: 'payload' }),
-    ...mapGetters(['notifications']),
-
-    // notifications() {
-    //   return this.$store.getters.notifications;
-    // },
+    ...mapGetters('loading', { snackbar: 'notifications' }),
 
   },
+
   methods: {
 
     ...mapActions('auth', { authLogout: 'logout' }),
@@ -46,6 +43,7 @@ export default {
     },
 
   },
+  
  };
 </script>
 
