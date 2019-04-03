@@ -3,7 +3,7 @@
     <v-app>
       <v-content>
         <v-container fluid>
-          <app-header v-if="user" :user="user.user" :logout="logout"></app-header>
+          <app-header v-if="user" :user="user.user" :signout="SignOut"></app-header>
           <router-view />
         </v-container>
       </v-content>
@@ -30,16 +30,19 @@ export default {
   computed: {
 
     ...mapState('auth', { user: 'payload' }),
-    ...mapGetters('loading', { snackbar: 'notifications' }),
+    ...mapGetters('notification', { snackbar: 'getData' }),
 
   },
 
   methods: {
 
-    ...mapActions('auth', { authLogout: 'logout' }),
+    ...mapActions('auth', { signOut: 'logout' }),
 
-    logout() {
-      this.authLogout().then(() => this.$router.push({ name: 'login' }));
+    SignOut() {
+      this.signOut().then(() => {
+        this.$router.push({ name: 'login' });
+        this.$store.dispatch('notification/invoke', { status: true, color: 'green', message: 'You have been logged out' });
+      });
     },
 
   },

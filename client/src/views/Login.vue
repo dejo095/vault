@@ -87,7 +87,7 @@ export default {
         }).then(() => {
           this.$router.replace({ name: 'dashboard'});
         }).catch((e) => {
-          this.$store.dispatch('setNotification', { state: true, color: 'red', message: 'Your credentials seem to not work!' });
+          this.$store.dispatch('notification/invoke', { status: true, color: 'red', message: 'Your credentials seem to not work!' });
         });
       }
     },

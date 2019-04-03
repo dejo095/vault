@@ -1,16 +1,32 @@
 <template>
   <v-card hover elevation-5 color="cyan lighten-4">
-    
-    <v-toolbar dark color="primary">
-      
-      <v-toolbar-title>{{board.title}}</v-toolbar-title>
+
+    <v-toolbar id="toolbar" dark dense flat color="primary" height="30px">
+
+      <v-toolbar-title class="left-0 text-uppercase body-1">{{board.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-      
+
       <!-- Modal for Remove button -->
       <v-dialog v-model="confirmDelete" persistent max-width="400px">
         <template v-slot:activator="{ on }">
-          <v-btn v-on="on" icon @click="confirmDelete = true"><v-icon>close</v-icon></v-btn>
+          <v-fab-transition>
+              <v-btn
+                class="closeBtn"
+                v-on="on"
+                color="lime"
+                dark
+                small
+                absolute
+                bottom
+                right
+                fab
+                flat
+                @click="confirmDelete = true">
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-fab-transition>
+          <!-- <v-btn v-on="on" icon flat tile @click="confirmDelete = true" color="red"><v-icon>close</v-icon></v-btn> -->
         </template>
           <v-card color="red" dark>
             <v-card-title><h2>Confirm Delete!</h2></v-card-title>
@@ -69,4 +85,14 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .closeBtn
+    height: 20px
+    width: 20px
+    right: 4px
+    top: 4px
+
+  .left-0
+    padding-left: 0px
+    margin-left: -10px
 </style>
+

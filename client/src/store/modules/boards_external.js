@@ -30,7 +30,14 @@ const actions = {
 
   setInitialCount: ({commit}, payload) => {
     commit('SET_BOARDS_COUNT', payload);
-  }
+  },
+  increaseCount: ({commit}) => {
+    commit('INCREMENT_BOARDS_COUNT');
+  },
+  decreaseCount: ({commit}) => {
+    commit('DECREMENT_BOARDS_COUNT');
+  },
+
 
 };
 

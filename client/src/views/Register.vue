@@ -61,6 +61,10 @@ import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 
 export default {
+  
+  components: {
+    'app-loading': Loader,
+  },
 
   data: (vm) => ({
     valid: false,
@@ -83,10 +87,6 @@ export default {
     ],
   }),
 
-  components: {
-    'app-loading': Loader
-  },
-
   computed: {
     ...mapState('users', { isCreating: 'isCreatePending' }),
   },
@@ -98,11 +98,10 @@ export default {
         const { User } = this.$FeathersVuex;
         const user = new User(this.user);
         await user.save()
-          .then((user) => {
-            this.$router.push({ name: 'login'});
-            this.$store.dispatch('setNotification', { state: true, color: 'green', message: 'You are now registered!<br/>Please sign in to use the Vault!' });
-        });
-
+          .then(() => {
+            this.$router.push({ name: 'login' });
+            this.$store.dispatch('notification/invoke', { status: true, color: 'green', message: 'You are now registered! Please sign in to use the Vault!' });
+          });
       }
     },
 
@@ -111,6 +110,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
   #signup
     height: 90vh
 

@@ -2,12 +2,13 @@
   <v-container fluid>
     
     <h1 v-if="loadingBoards">Loading...</h1>
+
     <v-layout id="boardsPanel">
         <pa-singleboard 
           v-for="board in boards" 
           :key="board._id" 
           :board="board"
-          @removeTrigger="removeBoard(board._id)"
+          @removeTrigger="removeBoardByID(board._id)"
         ></pa-singleboard>
   
       <!-- Modal window for creating new board -->
@@ -21,6 +22,7 @@
       </v-dialog>
 
     </v-layout>
+
   </v-container>
 </template>
 
@@ -45,22 +47,24 @@ export default {
   async created () {
     await this.findBoards();
     // sets the initial count of existing boards into store
-    // await this.$store.dispatch('setInitialCount', this.boards.length);
     this.setInitialBoardsCount(this.boards.length);
   },
 
 methods: {
 
     ...mapActions('boards', { findBoards: 'find' }),
+    ...mapActions('boards', { removeBoard: 'remove' }),
     ...mapActions('boards_external', { setBoardCount: 'setInitialCount'}),
+    ...mapActions('boards_external', ['increaseCount']),
+    ...mapActions('boards_external', ['decreaseCount']),
 
     createNewBoard (event) {
       const { Board } = this.$FeathersVuex;
       const board = new Board(event);
       board.save()
         .then(() => {
-          this.$store.commit('boards_external/INCREMENT_BOARDS_COUNT');
-          this.$store.dispatch('loading/setNotification', { state: true, color: 'green', message: 'Board created!' });
+          this.increaseCount();
+          this.$store.dispatch('notification/invoke', { status: true, color: 'green', message: 'Board created!' });
       });
     },
 
@@ -69,9 +73,9 @@ methods: {
       this.setBoardCount(data);
     },
 
-    removeBoard (boardId) {
-      this.$store.dispatch('boards/remove', boardId); // better this
-      this.$store.commit('boards_external/DECREMENT_BOARDS_COUNT');
+    removeBoardByID (boardId) {
+      this.removeBoard(boardId);
+      this.decreaseCount();
     },
 
   },
@@ -93,7 +97,7 @@ methods: {
   #boardsPanel
     display: grid 
     grid-gap: 14px
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
 
   #createBoard
     bottom: 20px

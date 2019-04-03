@@ -18,7 +18,7 @@
     <v-toolbar-items v-if="user" >
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-icon v-on="on" class="logoutBtn" @click="logout">logout</v-icon>
+          <v-icon v-on="on" class="logoutBtn" @click="signout">logout</v-icon>
         </template>
         <span>Logout</span>
       </v-tooltip>    
@@ -43,7 +43,7 @@ import { mapGetters } from 'vuex';
 
 export default {
 
-  props: ['user', 'logout'],
+  props: ['user', 'signout'],
 
   computed: {
 

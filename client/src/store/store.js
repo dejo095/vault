@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import feathersVuex from 'feathers-vuex';
 import feathersClient from '../feathers-client';
 
-import loading from './modules/loading';
+import notification from './modules/notification';
 import boards_external from './modules/boards_external';
 
 const { service, auth, FeathersVuex } = feathersVuex(feathersClient, { idField: '_id' });
@@ -34,7 +34,7 @@ let plugins = [
 export default new Vuex.Store({
 
   modules: {
-    loading,
+    notification,
     boards_external,
   },
   plugins: [...plugins]
