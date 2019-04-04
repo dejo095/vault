@@ -19,7 +19,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex';
-import Header from '@/components/Header';
+import Header from '@/components/Header.vue';
 
 export default {
 
@@ -46,8 +46,8 @@ export default {
     },
 
   },
-  
- };
+
+};
 </script>
 
 <style lang="stylus">
@@ -58,4 +58,3 @@ export default {
     font-size: 20px
 
 </style>
-

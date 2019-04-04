@@ -4,7 +4,12 @@
       <h2>Create new card</h2>
     </v-toolbar>
     <v-card-text>
-      <v-form ref="form" v-model="valid" @keyup.enter="sendDataForCreatingBoard" @submit.prevent="sendDataForCreatingBoard">
+      <v-form
+        ref="form"
+        v-model="valid"
+        @keyup.enter="sendDataForCreatingBoard"
+        @submit.prevent="sendDataForCreatingBoard">
+
         <v-flex pa-2>
           <v-text-field
             v-model="board.title"
@@ -27,6 +32,7 @@
           <v-btn color="primary" @click="closeDialog">close</v-btn>
           <v-btn :disabled="!valid" type="submit" color="success">Create</v-btn>
         </v-layout>
+
       </v-form>
     </v-card-text>
   </v-card>
@@ -68,7 +74,7 @@ export default {
   },
   methods: {
 
-    sendDataForCreatingBoard () {
+    sendDataForCreatingBoard() {
       if (this.$refs.form.validate()) {
         this.$emit('dataForNewBoard', this.board);
         this.$emit('returnedDialog', false);
@@ -76,7 +82,7 @@ export default {
       }
     },
 
-    closeDialog () {
+    closeDialog() {
       this.$emit('returnedDialog', false);
       this.$refs.form.reset();
     },
@@ -85,7 +91,3 @@ export default {
 
 };
 </script>
-
-<style>
-
-</style>

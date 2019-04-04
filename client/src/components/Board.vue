@@ -26,7 +26,6 @@
                 <v-icon>close</v-icon>
               </v-btn>
             </v-fab-transition>
-          <!-- <v-btn v-on="on" icon flat tile @click="confirmDelete = true" color="red"><v-icon>close</v-icon></v-btn> -->
         </template>
           <v-card color="red" dark>
             <v-card-title><h2>Confirm Delete!</h2></v-card-title>
@@ -50,7 +49,7 @@
     </v-toolbar>
 
     <v-card-text>
-    <p>{{ board.text }}</p>    
+    <p>{{ board.text }}</p>
     </v-card-text>
     <v-card-actions>
       <v-layout column align-start>
@@ -70,18 +69,18 @@ export default {
   data() {
     return {
       confirmDelete: false,
-    }
+    };
   },
 
   props: ['board'],
 
   methods: {
-    removeBoard () {
+    removeBoard() {
       this.$emit('removeTrigger', true);
     },
   },
 
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -95,4 +94,3 @@ export default {
     padding-left: 0px
     margin-left: -10px
 </style>
-

@@ -18,7 +18,6 @@ module.exports = function (app) {
       type: String, 
       required: true,
       minlength: 1,
-      maxlength: 255,
       trim: true
     },
     ownerId: {

@@ -22,8 +22,9 @@
 * [x] solve issues with pre and after hooks for crypt/decrypt
 * [x] removing boards on x click with confirmation
 * [ ] Fix creating while no auth token present
-* [ ] Fix form not reseting after create
-* [ ] keyup.enter not working in forms? v-btn maybe need to be inside form tag
-* [ ] solve auth hook to extend payload to add email so we can parse it in frontend
+* [x] Fix form not reseting after create
+* [x] keyup.enter not working in forms? v-btn maybe need to be inside form tag
+* [x] solve auth hook to extend payload to add email so we can parse it in frontend
+* [ ] link errors from backend to frontend
 
 https://github.com/emaesen/vue-feathers-productivity-app/blob/master/client/src/components/Todos.vue

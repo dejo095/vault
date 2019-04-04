@@ -58,15 +58,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loader from '@/components/Loader';
+import Loader from '@/components/Loader.vue';
 
 export default {
-  
+
   components: {
     'app-loading': Loader,
   },
 
-  data: (vm) => ({
+  data: vm => ({
     valid: false,
     user: {
       displayName: '',

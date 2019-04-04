@@ -4,13 +4,13 @@ const state = {
     status: false,
     color: '',
     message: '',
-  }
+  },
 
 };
 
 const getters = {
 
-  getData: (state) => state.notification
+  getData: (state) => state.notification,
 
 };
 
@@ -18,15 +18,15 @@ const mutations = {
 
   SET_NOTIFICATION: (state, payload) => {
     state.notification = payload;
-  }
+  },
 
 };
 
 const actions = {
 
-  invoke: ({commit}, payload) => {
+  invoke: ({ commit }, payload) => {
     commit('SET_NOTIFICATION', payload);
-  }
+  },
 
 };
 
@@ -35,6 +35,5 @@ export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };
-

@@ -21,7 +21,7 @@
           <v-icon v-on="on" class="logoutBtn" @click="signout">logout</v-icon>
         </template>
         <span>Logout</span>
-      </v-tooltip>    
+      </v-tooltip>
     </v-toolbar-items>
     <v-toolbar-items>
       <v-layout row align-center>
@@ -49,13 +49,13 @@ export default {
 
     ...mapGetters('boards_external', { counter: 'boardsCounter' }),
 
-    firstLetterOfUsername () {
-      return this.user.displayName.substring(0,1);
+    firstLetterOfUsername() {
+      return this.user.displayName.substring(0, 1);
     },
 
   },
 
-}
+};
 </script>
 
 <style lang="stylus" scoped>

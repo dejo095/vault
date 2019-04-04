@@ -11,25 +11,25 @@ const { service, auth, FeathersVuex } = feathersVuex(feathersClient, { idField: 
 Vue.use(Vuex);
 Vue.use(FeathersVuex);
 
-let plugins = [
+const plugins = [
 
   service('users', {
     instanceDefaults: {
-      email:'',
+      email: '',
       password: '',
-    }
+    },
   }),
 
   service('boards', {
     instanceDefaults: {
-      title:'',
+      title: '',
       text: '',
-    }
+    },
   }),
 
-  auth({ userService: 'users' })
+  auth({ userService: 'users' }),
 
-]
+];
 
 export default new Vuex.Store({
 
@@ -37,6 +37,6 @@ export default new Vuex.Store({
     notification,
     boards_external,
   },
-  plugins: [...plugins]
+  plugins: [...plugins],
 
 });
