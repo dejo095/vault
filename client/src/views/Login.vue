@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-container fluid fill-height>
-      <transition name="slide">
+      <transition name="slide" appear>
         <v-layout id="login" align-center justify-center>
           <v-flex xs12 sm8 md6 lg4>
             <v-card v-if="!isLogging" class="elevation-12">
@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
   #login
     height: 90vh
 
