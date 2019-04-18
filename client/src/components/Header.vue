@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-side-icon v-if="user"></v-toolbar-side-icon>
       <v-toolbar-title>
-        <h1>Vault-76</h1>
+        <h1 class="primary--text font-weight-light.font-italic">Vault</h1>
       </v-toolbar-title>
       <v-toolbar-items>
         <v-layout ml-5 column justify-center>

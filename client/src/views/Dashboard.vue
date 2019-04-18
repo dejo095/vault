@@ -25,16 +25,23 @@
         </pa-createboard>
       </v-dialog>
 
-      <v-dialog v-model="dialogWelcome" persistent width="600">
-        <v-card>
+      <v-dialog v-model="dialogWelcome" persistent max-width="800">
+        <v-card color="yellow">
           <v-card-title>
-            Welcome!!
+            <h1 class="display-3 font-weight-light">Welcome2<span class="primary--text font-weight-black">Vault!</span></h1>
           </v-card-title>
+          <v-divider></v-divider>
           <v-card-text>
-            <p>some text</p>
+            <h3 class="font-weight-regular mb-2">Vault is an application whose primary concern is data protection! In an age where we use too many applications and each requires a form
+              of authentication, we are drowned in different credentials. This is where Vault comes in view! We offer a safe place, a Vault if you want, for your credentials!</h3>
+            <h3 class="font-weight-regular mb-3">All your data entered in Vault, is encrypted using highest military grade encryption algorhytms, salted with several layers of randomly generated strings so decryption
+                would be impossible task even if somebody would get hold of your data from the database.</h3>
+            <h2><strong>Vault Team!</strong></h2>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
-            <v-btn @click="closeWelcome">OK</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn flat @click="closeWelcome">I confirm</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -59,10 +66,11 @@ export default {
     'pa-createboard': CreateBoard,
   },
 
-  async created () {
-    await this.findBoards();
+  created () {
+    this.findBoards();
     // sets the initial count of existing boards into store
     this.setInitialBoardsCount(this.boards.length);
+    this.findSettings();
   },
 
   methods: {
@@ -72,6 +80,7 @@ export default {
     ...mapActions('boards_external', { setBoardCount: 'setInitialCount' }),
     ...mapActions('boards_external', ['increaseCount']),
     ...mapActions('boards_external', ['decreaseCount']),
+    ...mapActions('settings', { findSettings: 'find' }),
 
     createNewBoard(event) {
       const { Board } = this.$FeathersVuex;
@@ -82,9 +91,11 @@ export default {
           this.$store.dispatch('notification/invoke', { status: true, color: 'green', message: 'Board created!' });
         });
     },
-    
+
     closeWelcome () {
-      this.$store.dispatch('notification/closeWelcome');
+      // this.$store.dispatch('notification/closeWelcome');
+      this.$store.dispatch('settings/patch', [this.settingsId[0], { welcomeMsg: false }]);
+
     },
 
     // executes actions which updates counter state in store
@@ -103,12 +114,22 @@ export default {
     
     ...mapState('boards', { loadingBoards: 'isFindPending' }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
-    ...mapGetters('notification', { dialogWelcome: 'getWelcomeMessage' }),
+    ...mapGetters('settings', { dialogMsg: 'find' }),
+    ...mapState('settings', { settingsId: 'ids' }),
+    // ...mapGetters('notification', { dialogWelcome: 'getWelcomeMessage' }),
 
     boards () {
       return this.findBoardsInStore({ query: {} }).data;
     },
-   
+
+    dialogWelcome () {
+      let d =  this.dialogMsg;
+      console.log(d);
+      return d;
+
+    },
+
+
   },
 
 };
