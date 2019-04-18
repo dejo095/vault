@@ -25,6 +25,20 @@
         </pa-createboard>
       </v-dialog>
 
+      <v-dialog v-model="dialogWelcome" persistent width="600">
+        <v-card>
+          <v-card-title>
+            Welcome!!
+          </v-card-title>
+          <v-card-text>
+            <p>some text</p>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="closeWelcome">OK</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
     </v-layout>
 
   </v-container>
@@ -36,19 +50,16 @@ import Board from '@/components/Board.vue';
 import CreateBoard from '@/components/CreateBoard.vue';
 
 export default {
+  data: () => ({
+    dialog: false,
+  }),
 
   components: {
     'pa-singleboard': Board,
     'pa-createboard': CreateBoard,
   },
 
-  data() {
-    return {
-      dialog: false,
-    };
-  },
-
-  async created() {
+  async created () {
     await this.findBoards();
     // sets the initial count of existing boards into store
     this.setInitialBoardsCount(this.boards.length);
@@ -65,19 +76,23 @@ export default {
     createNewBoard(event) {
       const { Board } = this.$FeathersVuex;
       const board = new Board(event);
-      board.save()
+      board.save ()
         .then(() => {
           this.increaseCount();
           this.$store.dispatch('notification/invoke', { status: true, color: 'green', message: 'Board created!' });
         });
     },
+    
+    closeWelcome () {
+      this.$store.dispatch('notification/closeWelcome');
+    },
 
     // executes actions which updates counter state in store
-    setInitialBoardsCount(data) {
+    setInitialBoardsCount (data) {
       this.setBoardCount(data);
     },
 
-    removeBoardByID(boardId) {
+    removeBoardByID (boardId) {
       this.removeBoard(boardId);
       this.decreaseCount();
     },
@@ -85,14 +100,15 @@ export default {
   },
 
   computed: {
-
+    
     ...mapState('boards', { loadingBoards: 'isFindPending' }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
+    ...mapGetters('notification', { dialogWelcome: 'getWelcomeMessage' }),
 
-    boards() {
+    boards () {
       return this.findBoardsInStore({ query: {} }).data;
     },
-
+   
   },
 
 };
