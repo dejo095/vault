@@ -26,5 +26,14 @@
 * [x] keyup.enter not working in forms? v-btn maybe need to be inside form tag
 * [x] solve auth hook to extend payload to add email so we can parse it in frontend
 * [ ] link errors from backend to frontend
+* [ ] make counter generate from app.vue
+* [ ] make settings can be saved
+* [ ] make appname in header is homepage url
+* [ ] ~~fix create new baord dialog not opening anymore~~
+* [ ] enter text editor instead of textarea
+* [ ] format date
+* [ ] Prevent user service to give all users back
+* [ ] make route animation transitions
+* [ ] make board creating animation
 
 https://github.com/emaesen/vue-feathers-productivity-app/blob/master/client/src/components/Todos.vue
