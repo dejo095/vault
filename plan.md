@@ -25,14 +25,15 @@
 * [x] Fix form not reseting after create
 * [x] keyup.enter not working in forms? v-btn maybe need to be inside form tag
 * [x] solve auth hook to extend payload to add email so we can parse it in frontend
+* [x] create new hook that populates settings collection after user creation
 * [ ] link errors from backend to frontend
 * [ ] make counter generate from app.vue
 * [ ] make settings can be saved
 * [ ] make appname in header is homepage url
 * [ ] ~~fix create new baord dialog not opening anymore~~
 * [ ] enter text editor instead of textarea
-* [ ] format date
-* [ ] Prevent user service to give all users back
+* [x] format date
+* [x] Prevent user service to give all users back
 * [ ] make route animation transitions
 * [ ] make board creating animation
 
