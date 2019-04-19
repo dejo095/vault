@@ -27,6 +27,8 @@ const plugins = [
     },
   }),
 
+  service('settings'),
+
   auth({ userService: 'users' }),
 
 ];
