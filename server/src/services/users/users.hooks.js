@@ -4,6 +4,8 @@ const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
 
+const populateSettings = require('../../hooks/populate-settings');
+
 module.exports = {
   before: {
     all: [],
@@ -21,7 +23,7 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [ populateSettings() ],
     update: [],
     patch: [],
     remove: []
