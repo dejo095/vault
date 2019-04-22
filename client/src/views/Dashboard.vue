@@ -41,8 +41,6 @@
       </v-dialog>
       </div>
 
-      <!-- // TODO: Prevent user service to give all users back -->
-
       <!-- Modal window for creating new board -->
       <v-dialog v-model="dialogCreate" persistent max-width="600px">
         <pa-createboard
