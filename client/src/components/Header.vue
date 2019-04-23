@@ -1,7 +1,19 @@
 <template>
   <transition name="slide" appear>
     <v-toolbar>
-      <v-toolbar-side-icon v-if="user"></v-toolbar-side-icon>
+      <v-menu transition="slide-y-transition" bottom>
+        <template v-slot:activator="{ on }">
+          <v-toolbar-side-icon v-if="user" v-on="on"></v-toolbar-side-icon>
+        </template>
+        <v-list>
+          <v-list-tile @click="goToSettings">
+            <v-list-tile-title>Settings</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-title>Profile</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
       <v-toolbar-title>
         <h1 class="primary--text font-weight-light.font-italic">Vault</h1>
       </v-toolbar-title>
@@ -54,6 +66,14 @@ export default {
     firstLetterOfUsername() {
       return this.user.displayName.substring(0, 1);
     },
+
+  },
+
+  methods: {
+    
+    goToSettings () {
+      this.$router.push({ name: 'settings' });
+    }
 
   },
 

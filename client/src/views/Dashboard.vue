@@ -11,19 +11,13 @@
           @removeTrigger="removeBoardByID(board._id)">
         </pa-singleboard>
 
-      <!-- Modal window for creating new board -->
-      <v-dialog v-model="dialog" persistent max-width="600px">
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" id="createBoard" absolute bottom right fab dark color="red">
-            <v-icon>add</v-icon>
-          </v-btn>
-        </template>
-        <pa-createboard
-          :dialog="dialog"
-          @returnedDialog="dialog = false"
-          @dataForNewBoard="createNewBoard($event)">
-        </pa-createboard>
-      </v-dialog>
+        <v-btn @click="dialogCreate = !dialogCreate" id="createBoard" absolute bottom right fab dark color="red">
+          <v-icon>add</v-icon>
+        </v-btn>
+
+        <v-btn @click="open">Set active</v-btn> <!-- // TODO: remove this -->
+
+      <div v-if="!loadingSettings">
 
       <v-dialog v-model="dialogWelcome" persistent max-width="800">
         <v-card color="yellow">
@@ -45,6 +39,17 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      </div>
+
+      <!-- Modal window for creating new board -->
+      <v-dialog v-model="dialogCreate" persistent max-width="600px">
+        <pa-createboard
+          :dialog="dialogCreate"
+          @returnedDialog="dialogCreate = false"
+          @dataForNewBoard="createNewBoard($event)">
+        </pa-createboard>
+      </v-dialog>
+
 
     </v-layout>
 
@@ -58,7 +63,7 @@ import CreateBoard from '@/components/CreateBoard.vue';
 
 export default {
   data: () => ({
-    dialog: false,
+    dialogCreate: false,
   }),
 
   components: {
@@ -66,11 +71,12 @@ export default {
     'pa-createboard': CreateBoard,
   },
 
-  created () {
-    this.findBoards();
+  async created () {
+    await this.findSettings({});
+    await this.findBoards();
     // sets the initial count of existing boards into store
-    this.setInitialBoardsCount(this.boards.length);
-    this.findSettings();
+    await this.setInitialBoardsCount(this.boards.length);
+
   },
 
   methods: {
@@ -81,6 +87,7 @@ export default {
     ...mapActions('boards_external', ['increaseCount']),
     ...mapActions('boards_external', ['decreaseCount']),
     ...mapActions('settings', { findSettings: 'find' }),
+    ...mapActions('settings', { patchSetting: 'patch' }),
 
     createNewBoard(event) {
       const { Board } = this.$FeathersVuex;
@@ -93,9 +100,12 @@ export default {
     },
 
     closeWelcome () {
-      // this.$store.dispatch('notification/closeWelcome');
-      this.$store.dispatch('settings/patch', [this.settingsId[0], { welcomeMsg: false }]);
-
+      let id = this.$store.state.settings.ids[0];
+      this.patchSetting([id, { welcomeMsg: false }]);
+    },
+    open () {
+      let id = this.$store.state.settings.ids[0];
+      this.patchSetting([id, { welcomeMsg: true }]);
     },
 
     // executes actions which updates counter state in store
@@ -111,22 +121,20 @@ export default {
   },
 
   computed: {
-    
+
     ...mapState('boards', { loadingBoards: 'isFindPending' }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
-    ...mapGetters('settings', { dialogMsg: 'find' }),
-    ...mapState('settings', { settingsId: 'ids' }),
-    // ...mapGetters('notification', { dialogWelcome: 'getWelcomeMessage' }),
+    ...mapState('settings', { loadingSettings: 'isFindPending' }),
+    ...mapGetters('settings', { allSettings: 'find' }),
 
     boards () {
       return this.findBoardsInStore({ query: {} }).data;
     },
 
     dialogWelcome () {
-      let d =  this.dialogMsg;
-      console.log(d);
-      return d;
+      console.log(this.allSettings({ query: { $select: [ 'welcomeMsg' ] } }).data[0].welcomeMsg);
 
+      return this.allSettings({ query: { $select: [ 'welcomeMsg' ] } }).data[0].welcomeMsg;
     },
 
 

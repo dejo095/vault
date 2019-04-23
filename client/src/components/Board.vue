@@ -55,7 +55,7 @@
       <v-layout column align-start>
         <v-flex pl-2>
           <small>
-            {{ board.createdAt }}
+            {{ board.createdAt | formatDate }}
           </small>
         </v-flex>
       </v-layout>

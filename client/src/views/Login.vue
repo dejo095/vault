@@ -47,6 +47,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import Loader from '@/components/Loader.vue';
+import { isEmail, isNotEmpty } from '@/validators';
 
 export default {
 
@@ -60,13 +61,8 @@ export default {
       email: '',
       password: '',
     },
-    notEmpty: [
-      v => !!v || 'Must not be empty',
-    ],
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
+    isEmail,
+    isNotEmpty,
   }),
 
   computed: {

@@ -60,7 +60,6 @@ export default {
     ],
 
   }),
-
   computed: {
 
     ...mapState('users', { isCreating: 'isCreatePending' }),

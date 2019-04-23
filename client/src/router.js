@@ -48,5 +48,11 @@ export default new Router({
       component: () => import('./views/Dashboard.vue'),
       beforeEnter: isLoggedIn,
     },
+    {
+      path: '/dashboard/settings',
+      name: 'settings',
+      component: () => import('@/views/Settings.vue'),
+      beforeEnter: isLoggedIn,
+    },
   ],
 });
