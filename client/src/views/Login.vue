@@ -13,6 +13,7 @@
 
                 <v-form ref="form" v-model="valid" @submit.prevent="signIn">
                   <v-text-field
+                    data-test="emailAdress"
                     v-model="user.email"
                     :rules="emailRules"
                     prepend-icon="person"
@@ -21,6 +22,7 @@
                     autofocus>
                   </v-text-field>
                   <v-text-field
+                    data-test="password"
                     v-model="user.password"
                     :rules="notEmpty"
                     prepend-icon="lock"
@@ -29,7 +31,7 @@
                   </v-text-field>
                   <v-layout row justify-space-between mt-3>
                     <v-btn to="/register" flat color="primary">Not registered yet?</v-btn>
-                    <v-btn :disabled="!valid" type="submit" color="primary">Sign In</v-btn>
+                    <v-btn :disabled="!valid" data-test="loginBtn" type="submit" color="primary">Sign In</v-btn>
                   </v-layout>
                 </v-form>
 
